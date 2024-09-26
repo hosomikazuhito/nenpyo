@@ -3,4 +3,3 @@ class YearsController < ApplicationController
     @years = Year.all
   end
 end
-

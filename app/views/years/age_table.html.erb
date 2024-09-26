@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>年号早見表</title>
+  <style>
+    .table-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .table-column {
+      flex: 1;
+      min-width: 200px;
+      margin: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 4px;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .reiwa {
+      color: red;
+    }
+    .heisei {
+      color: blue;
+    }
+    .showa {
+      color: green;
+    }
+    .taisho {
+      color: purple;
+    }
+    .meiji {
+      color: orange;
+    }
+    .age-input {
+      font-size: 1.5em;
+      padding: 10px;
+    }
+    .age-button {
+      font-size: 1.5em;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>年号早見表</h1>
+  <form action="/age_table" method="get" style="display: inline;">
+    <input type="number" name="age" min="0" max="150" value="0" class="age-input">
+    <button type="submit" class="age-button">年表</button>
+  </form>
+  <div class="table-container">
+    <div class="table-column">
+      <table>
+        <tr>
+          <th>年齢</th>
+          <th>西暦</th>
+          <th>和暦</th>
+          <th>入学</th>
+          <th>卒業</th>
+        </tr>
+        <% @school_years.each do |year| %>
+          <tr>
+            <td><%= year[:age] %>歳</td>
+            <td class="<%= wareki_class(year[:wareki]) %>"><%= year[:seireki] %></td>
+            <td class="<%= wareki_class(year[:wareki]) %>"><%= year[:wareki] %></td>
+            <td><%= year[:entry] %></td>
+            <td><%= year[:graduation] %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
