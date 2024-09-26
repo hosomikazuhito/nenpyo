@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>年号早見表</title>
+</head>
+<body>
+  <h1>年号早見表</h1>
+  <table border="1">
+    <tr>
+      <th>西暦</th>
+      <th>和暦</th>
+    </tr>
+    <% @years.each do |year| %>
+      <tr>
+        <td><%= year.seireki %></td>
+        <td><%= year.wareki %></td>
+      </tr>
+    <% end %>
+  </table>
+</body>
+</html>
