@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>年号早見表</title>
+  <style>
+    .scrollable-table {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 2px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .reiwa { color: green; }
+    .heisei { color: blue; }
+    .showa { color: red; }
+    .taisho { color: purple; }
+    .meiji { color: orange; }
+    .header { display: flex; align-items: center; }
+    .age-label { margin-left: 10px; font-size: 1.5em; }
+    .age-select { margin-left: 5px; font-size: 1.5em; padding: 5px; }
+    .buttons { margin-left: 10px; }
+    .buttons .large-button { 
+      font-size: 2em; /* フォントサイズを大きくする */
+      padding: 10px 20px; /* パディングを追加してボタンを大きくする */
+    }
+    .header { display: flex; align-items: center; }
+    .header form { display: flex; align-items: center; }
+    .year-select, .month-select, .day-select, .era-select {
+      width: auto; /* 幅を自動調整 */
+      height: 40px;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>年号学歴早見表</h1>
+    <%= form_with url: age_years_path, method: :get do %>
+      <span class="age-label">生まれた年</span>
+      <select class="year-select" name="birth_year">
+        <% (1900..Date.today.year).each do |year| %>
+          <option value="<%= year %>"><%= year %>(<%= to_japanese_era(year) %>)</option>
+        <% end %>
+      </select>
+      <span class="age-label">年</span>
+      <span class="age-label">生まれた月</span>
+      <select class="month-select" name="birth_month">
+        <% (1..12).each do |month| %>
+          <option value="<%= month %>"><%= month %></option>
+        <% end %>
+      </select>
+      <span class="age-label">月</span>
+      <span class="age-label">生まれた日</span>
+      <select class="day-select" name="birth_day">
+        <% (1..31).each do |day| %>
+          <option value="<%= day %>"><%= day %></option>
+        <% end %>
+      </select>
+      <span class="age-label">日</span>
+      <div class="buttons">
+        <%= submit_tag "学歴年表", class: "large-button" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="scrollable-table">
+    <table>
+      <tr>
+        <th>西暦</th>
+        <th>和暦</th>
+        <th>西暦</th>
+        <th>和暦</th>
+        <th>西暦</th>
+        <th>和暦</th>
+      </tr>
+      <% @years.each_slice(3) do |year_slice| %>
+        <tr>
+          <% year_slice.each do |year| %>
+            <% if year.wareki.include?("令和") %>
+              <td class="reiwa"><%= year.seireki %></td>
+              <td class="reiwa"><%= year.wareki %></td>
+            <% elsif year.wareki.include?("平成") %>
+              <td class="heisei"><%= year.seireki %></td>
+              <td class="heisei"><%= year.wareki %></td>
+            <% elsif year.wareki.include?("昭和") %>
+              <td class="showa"><%= year.seireki %></td>
+              <td class="showa"><%= year.wareki %></td>
+            <% elsif year.wareki.include?("大正") %>
+              <td class="taisho"><%= year.seireki %></td>
+              <td class="taisho"><%= year.wareki %></td>
+            <% elsif year.wareki.include?("明治") %>
+              <td class="meiji"><%= year.seireki %></td>
+              <td class="meiji"><%= year.wareki %></td>
+            <% else %>
+              <td><%= year.seireki %></td>
+              <td><%= year.wareki %></td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</body>
+</html>
