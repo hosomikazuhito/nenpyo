@@ -1,4 +1,4 @@
-class EducationCalculator
+class YourModel
   def initialize(age)
     @age = age
     @current_year = Date.today.year
