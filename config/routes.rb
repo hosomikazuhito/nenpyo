@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'years#index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :years do
+    collection do
+      get 'age'
+    end
+  end
 end

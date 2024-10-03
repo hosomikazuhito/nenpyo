@@ -1,0 +1,36 @@
+<h1 style="text-align: center; font-size: 2.5em;">学歴年表</h1>
+<div style="text-align: center;">
+  <h2 style="font-size: 2em;"><%= @age %>歳の学歴</h2>
+</div>
+<div style="display: flex; justify-content: center;">
+  <table class="education-table" border="1" style="border-collapse: collapse; text-align: center; width: 90%; font-size: 1.5em;">
+    <thead>
+      <tr>
+        <th>学年</th>
+        <th>入学年月</th>
+        <th>卒業年月</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @education_timeline.each do |event| %>
+        <tr>
+          <td style="background-color: <%= event[:color] %>; padding: 10px;"><%= event[:stage] %></td>
+          <td style="background-color: <%= event[:color] %>; padding: 10px;"><%= event[:start_date] %></td>
+          <td style="background-color: <%= event[:color] %>; padding: 10px;"><%= event[:end_date] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div style="margin-top: 20px;">
+  <%= link_to '戻る', years_path, class: 'back-button' %>
+</div>
+
+<style>
+  .back-button {
+    font-size: 2em; /* フォントサイズを大きくする */
+    text-decoration: none; /* テキストの下線を削除 */
+    color: #333; /* テキストの色を設定 */
+  }
+</style>
