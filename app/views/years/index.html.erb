@@ -46,7 +46,7 @@
     <%= form_with url: age_years_path, method: :get do %>
       <span class="age-label">生まれた年</span>
       <select class="year-select" name="birth_year">
-        <% (1900..Date.today.year).each do |year| %>
+        <% (1900..Date.today.year).reverse_each do |year| %>
           <option value="<%= year %>"><%= year %>(<%= to_japanese_era(year) %>)</option>
         <% end %>
       </select>
