@@ -1,5 +1,10 @@
 class Year
+  include ActiveModel::Model
+
   attr_reader :seireki, :wareki
+
+  validates :seireki, presence: true
+  validates :wareki, presence: true
 
   def initialize(seireki, wareki)
     @seireki = seireki
