@@ -4,20 +4,9 @@
   <meta charset="UTF-8">
   <title>年号早見表</title>
   <style>
-    .scrollable-table {
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 2px;
-      text-align: center;
-      white-space: nowrap;
-    }
+    .scrollable-table { overflow-x: auto; white-space: nowrap; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid black; padding: 2px; text-align: center; white-space: nowrap; }
     .reiwa { color: green; }
     .heisei { color: blue; }
     .showa { color: red; }
@@ -27,47 +16,35 @@
     .age-label { margin-left: 10px; font-size: 1.5em; }
     .age-select { margin-left: 5px; font-size: 1.5em; padding: 5px; }
     .buttons { margin-left: 10px; }
-    .buttons .large-button { 
-      font-size: 2em; 
-      padding: 10px 20px; 
-    }
+    .buttons .large-button { font-size: 2em; padding: 10px 20px; }
     .header { display: flex; align-items: center; }
     .header form { display: flex; align-items: center; }
-    .year-select, .month-select, .day-select, .era-select {
-      width: auto;
-      height: 40px;
-      font-size: 1.5em;
-    }
-    .error-message {
-      color: red; /* エラーメッセージを赤字に設定 */
-      font-weight: bold; /* 太字に設定 */
-      margin-top: 10px; /* 上部にマージンを追加 */
-      font-size: 2em; /* フォントサイズを大きく設定 */
-    }
+    .year-select, .month-select, .day-select, .era-select { width: auto; height: 40px; font-size: 1.5em; }
+    .error-message { color: red; font-weight: bold; margin-top: 10px; font-size: 2em; }
   </style>
 </head>
 <body>
   <div class="header">
     <h1>年号学歴早見表</h1>
-    <%= form_with url: age_years_path, method: :get do %>
+    <%= form_with url: age_years_path, method: :get, local: true do %>
       <span class="age-label">生まれた年</span>
       <select class="year-select" name="birth_year">
         <% (1900..Date.today.year).reverse_each do |year| %>
-          <option value="<%= year %>"><%= year %>(<%= to_japanese_era(year) %>)</option>
+          <option value="<%= year %>" <%= 'selected' if year.to_s == params[:birth_year].to_s %>><%= year %>(<%= to_japanese_era(year) %>)</option>
         <% end %>
       </select>
       <span class="age-label">年</span>
       <span class="age-label">生まれた月</span>
       <select class="month-select" name="birth_month">
         <% (1..12).each do |month| %>
-          <option value="<%= month %>"><%= month %></option>
+          <option value="<%= month %>" <%= 'selected' if month.to_s == params[:birth_month].to_s %>><%= month %></option>
         <% end %>
       </select>
       <span class="age-label">月</span>
       <span class="age-label">生まれた日</span>
       <select class="day-select" name="birth_day">
         <% (1..31).each do |day| %>
-          <option value="<%= day %>"><%= day %></option>
+          <option value="<%= day %>" <%= 'selected' if day.to_s == params[:birth_day].to_s %>><%= day %></option>
         <% end %>
       </select>
       <span class="age-label">日</span>
@@ -76,14 +53,11 @@
       </div>
     <% end %>
   </div>
-
-  <!-- エラーメッセージの表示部分を追加 -->
   <% if flash[:alert] %>
     <div class="error-message">
       <%= flash[:alert] %>
     </div>
   <% end %>
-
   <div class="scrollable-table">
     <table>
       <tr>
