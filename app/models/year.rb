@@ -5,6 +5,7 @@ class Year
 
   validates :seireki, presence: true
   validates :wareki, presence: true
+  validate :valid_year?
 
   def initialize(seireki, wareki)
     @seireki = seireki
@@ -171,5 +172,12 @@ class Year
       new('1869 年', '明治2年'),
       new('1868 年', '慶応4年(～9月8日) 明治元年(9月8日～)')
   ]
+  end
+  private
+
+  def valid_year?
+    unless Year.all.map(&:seireki).include?(seireki)
+      errors.add(:seireki, 'は無効な年です')
+    end
   end
 end

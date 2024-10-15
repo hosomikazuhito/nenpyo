@@ -28,15 +28,21 @@
     .age-select { margin-left: 5px; font-size: 1.5em; padding: 5px; }
     .buttons { margin-left: 10px; }
     .buttons .large-button { 
-      font-size: 2em; /* フォントサイズを大きくする */
-      padding: 10px 20px; /* パディングを追加してボタンを大きくする */
+      font-size: 2em; 
+      padding: 10px 20px; 
     }
     .header { display: flex; align-items: center; }
     .header form { display: flex; align-items: center; }
     .year-select, .month-select, .day-select, .era-select {
-      width: auto; /* 幅を自動調整 */
+      width: auto;
       height: 40px;
       font-size: 1.5em;
+    }
+    .error-message {
+      color: red; /* エラーメッセージを赤字に設定 */
+      font-weight: bold; /* 太字に設定 */
+      margin-top: 10px; /* 上部にマージンを追加 */
+      font-size: 2em; /* フォントサイズを大きく設定 */
     }
   </style>
 </head>
@@ -70,6 +76,14 @@
       </div>
     <% end %>
   </div>
+
+  <!-- エラーメッセージの表示部分を追加 -->
+  <% if flash[:alert] %>
+    <div class="error-message">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
   <div class="scrollable-table">
     <table>
       <tr>
