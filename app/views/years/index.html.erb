@@ -12,6 +12,10 @@
     .showa { color: red; }
     .taisho { color: purple; }
     .meiji { color: orange; }
+    .keio { color: lightblue; }
+    .bakumatsu { color: coral; }
+    .edojidai { color: Brown; }
+    .sengoku { color: Magenta; }
     .header { display: flex; align-items: center; }
     .age-label { margin-left: 10px; font-size: 1.5em; }
     .age-select { margin-left: 5px; font-size: 1.5em; padding: 5px; }
@@ -71,23 +75,36 @@
       <% @years.each_slice(3) do |year_slice| %>
         <tr>
           <% year_slice.each do |year| %>
+            <% seireki = year.seireki.to_i %>
             <% if year.wareki.include?("令和") %>
-              <td class="reiwa"><%= year.seireki %></td>
+              <td class="reiwa"><%= seireki %></td>
               <td class="reiwa"><%= year.wareki %></td>
             <% elsif year.wareki.include?("平成") %>
-              <td class="heisei"><%= year.seireki %></td>
+              <td class="heisei"><%= seireki %></td>
               <td class="heisei"><%= year.wareki %></td>
             <% elsif year.wareki.include?("昭和") %>
-              <td class="showa"><%= year.seireki %></td>
+              <td class="showa"><%= seireki %></td>
               <td class="showa"><%= year.wareki %></td>
             <% elsif year.wareki.include?("大正") %>
-              <td class="taisho"><%= year.seireki %></td>
+              <td class="taisho"><%= seireki %></td>
               <td class="taisho"><%= year.wareki %></td>
             <% elsif year.wareki.include?("明治") %>
-              <td class="meiji"><%= year.seireki %></td>
+              <td class="meiji"><%= seireki %></td>
               <td class="meiji"><%= year.wareki %></td>
+            <% elsif year.wareki.include?("慶応") %>
+              <td class="keio"><%= seireki %></td>
+              <td class="keio"><%= year.wareki %></td>
+            <% elsif year.wareki.include?("幕末") %>
+              <td class="bakumatsu"><%= seireki %></td>
+              <td class="bakumatsu"><%= year.wareki %></td>
+            <% elsif year.wareki.include?("江戸時代") %>
+              <td class="edojidai"><%= seireki %></td>
+              <td class="edojidai"><%= year.wareki %></td>
+           <% elsif year.wareki.include?("戦国時代") %>
+              <td class="sengoku"><%= seireki %></td>
+              <td class="sengoku"><%= year.wareki %></td>
             <% else %>
-              <td><%= year.seireki %></td>
+              <td><%= seireki %></td>
               <td><%= year.wareki %></td>
             <% end %>
           <% end %>
