@@ -14,11 +14,21 @@ class YourModel
     }
     years = []
     education_periods.each do |level, duration|
-      duration.times do |i|
-        year = start_year + i
-        wareki = wareki_class(year)
-        years << { seireki: year, wareki: wareki, level: level, start_month: 4, end_month: 3 }
-      end
+      start_date = start_year
+      end_date = start_year + duration - 1
+      years << {
+        level: level,
+        start_date: start_date,
+        end_date: end_date,
+        seireki: {
+          start: start_date,
+          end: end_date
+        },
+        wareki: {
+          start: to_japanese_era(start_date),
+          end: to_japanese_era(end_date)
+        }
+      }
       start_year += duration
     end
     years
@@ -26,18 +36,18 @@ class YourModel
 
   private
 
-  def wareki_class(year)
+  def to_japanese_era(year)
     case year
     when 2019..Float::INFINITY
-      "令和#{year - 2018}"
+      "令和#{year - 2018}年"
     when 1989..2018
-      "平成#{year - 1988}"
+      "平成#{year - 1988}年"
     when 1926..1988
-      "昭和#{year - 1925}"
+      "昭和#{year - 1925}年"
     when 1912..1925
-      "大正#{year - 1911}"
+      "大正#{year - 1911}年"
     when 1868..1912
-      "明治#{year - 1867}"
+      "明治#{year - 1867}年"
     else
       "不明"
     end
