@@ -10,7 +10,8 @@ class YourModel
       "小学校" => 6,
       "中学校" => 3,
       "高校" => 3,
-      "大学" => 4
+      "短大" => 2 # 短大の期間を追加
+      "大学" => 4,
     }
     years = []
     education_periods.each do |level, duration|

@@ -30,7 +30,8 @@ class YearsController < ApplicationController
         { stage: '小学校', start_date: start_year, end_date: start_year + 6, color: 'lightcoral' },
         { stage: '中学校', start_date: start_year + 6, end_date: start_year + 9, color: 'lightblue' },
         { stage: '高校', start_date: start_year + 9, end_date: start_year + 12, color: 'lightgreen' },
-        { stage: '大学', start_date: start_year + 12, end_date: start_year + 16, color: 'plum' }
+        { stage: '短大', start_date: start_year + 12, end_date: start_year + 14, color: 'lightyellow' }, # 短大
+        { stage: '大学', start_date: start_year + 12, end_date: start_year + 18, color: 'plum' } # 大学も短大の開始年から
       ]
     else
       flash.now[:alert] = "存在しない日付です。正しい日付を入力してください。"
